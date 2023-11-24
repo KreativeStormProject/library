@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js" defer ></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet"
@@ -55,6 +56,24 @@
                     add_circle
                     </span>
             </div>
+            <form id="addBookModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Add New Book</h2>
+                    <label> Title:</label>
+                    <input type="text" name="title" required>
+                    <label>Author:</label>
+                    <input type="text" name="Author" required>
+                    <label>Number of pages:</label>
+                    <input type="text" name="Number_of_pages" required>
+                    <label>Read:</label>
+                    <select name="read" id="read" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                      <button type="submit" class="submit-button"> Submit</button>
+                </div>
+            </form>
         </div>
         
     </main>
