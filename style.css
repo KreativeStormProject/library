@@ -224,9 +224,4 @@ input, select {
     background-color: #45a049;
 }
 
-/* Optional: Style for success message */
-.success-message {
-    color: green;
-    font-weight: bold;
-    margin-top: 10px;
-}
+

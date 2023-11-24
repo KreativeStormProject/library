@@ -58,14 +58,14 @@
             </div>
             <form id="addBookModal" class="modal">
                 <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
+                    <span class="close material-symbols-outlined" onclick="closeModal()">close</span>
                     <h2>Add New Book</h2>
                     <label> Title:</label>
-                    <input type="text" name="title" required>
+                    <input type="text" name="title" pattern="^[A-Za-z]{2,}$"required>
                     <label>Author:</label>
-                    <input type="text" name="Author" required>
+                    <input type="text" name="Author" pattern="^[A-Za-z]{2,}$" required>
                     <label>Number of pages:</label>
-                    <input type="text" name="Number_of_pages" required>
+                    <input type="number" name="Number_of_pages" required>
                     <label>Read:</label>
                     <select name="read" id="read" required>
                         <option value="yes">Yes</option>
