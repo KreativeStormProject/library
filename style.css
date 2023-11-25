@@ -36,15 +36,24 @@ main{
     flex: 1;
     margin-left: 100px;
     margin-right: 100px; 
-   
+   margin-top: 20px;
 
 }
-.card-container{
+.books-text{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+#card-container{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
     width: 100%;
+}
+#cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .card{
     background: linear-gradient(to right, #12c453, #19bebe);
@@ -90,6 +99,7 @@ main{
     background-clip: text;
     color: transparent;
     cursor: pointer;
+    display: block;
   }
   footer {
     height: 50px;
