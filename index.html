@@ -42,7 +42,7 @@
                     <label for="author">Author:</label>
                     <input type="text" name="Author" id="author" pattern="^[A-Za-z ]{2,}$" required>
                     <label for="Number_of_pages">Number of pages:</label>
-                    <input type="number" name="Number_of_pages" id="number_of_pages" required>
+                    <input type="number" name="Number_of_pages" id="number_of_pages" required pattern="[0-9]+" min="0">
                     <label for="read">Read:</label>
                     <select name="read" id="read" required>
                         <option value="yes">Yes</option>
