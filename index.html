@@ -57,11 +57,11 @@
                     <span class="close" onclick="document.getElementById('editBookModal').style.display='none'">&times;</span>
                     <h2>Edit Book</h2>
                     <label>Title:</label>
-                    <input type="text" name="editTitle" id="editTitle" required>
+                    <input type="text" name="editTitle" id="editTitle" pattern="^[A-Za-z ]{2,}$" required>
                     <label>Author:</label>
-                    <input type="text" name="editAuthor" id="editAuthor" required>
+                    <input type="text" name="editAuthor" id="editAuthor" pattern="^[A-Za-z ]{2,}$" required>
                     <label>Number of pages:</label>
-                    <input type="text" name="editNumber_of_pages" id="editNumber_of_pages" required>
+                    <input type="text" name="editNumber_of_pages" id="editNumber_of_pages" pattern="[0-9]+" min="0" required>
                     <label>Read:</label>
                     <select name="editRead" id="editRead" required>
                         <option value="yes">Yes</option>
