@@ -20,6 +20,10 @@ function Book(title, author, numberP, read) {
     this.author = author;
     this.numberP = numberP;
     this.read = read === 'yes';
+    this.deleteBook = function () {
+        myLibrary.splice(myLibrary.indexOf(this), 1);
+        displayBooks();
+    };
   }
   
   let myLibrary = [];
@@ -47,7 +51,7 @@ function Book(title, author, numberP, read) {
             </p>
             <div class="icons">
                 <i class="material-icons" onclick="openEditModal(${index})">edit</i>
-                <i class="material-icons" onclick="deleteBook(${index})">delete</i>
+                <i class="material-icons" onclick="myLibrary[${index}].deleteBook()">delete</i>
             </div>
         `;
   
@@ -72,10 +76,7 @@ function Book(title, author, numberP, read) {
     document.getElementById('addBookModal').reset();
   });
   
-  function deleteBook(index) {
-  myLibrary.splice(index, 1);
-  displayBooks();
-  }
+
 
 
 function openEditModal(index) {
