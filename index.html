@@ -51,6 +51,25 @@
                       <button type="submit" class="submit-button"> Submit</button>
                 </div>
             </form>
+
+            <form id="editBookModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="document.getElementById('editBookModal').style.display='none'">&times;</span>
+                    <h2>Edit Book</h2>
+                    <label>Title:</label>
+                    <input type="text" name="editTitle" id="editTitle" required>
+                    <label>Author:</label>
+                    <input type="text" name="editAuthor" id="editAuthor" required>
+                    <label>Number of pages:</label>
+                    <input type="text" name="editNumber_of_pages" id="editNumber_of_pages" required>
+                    <label>Read:</label>
+                    <select name="editRead" id="editRead" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                    <button type="button" class="submit-button" onclick="saveEdit()">Save</button>
+                </div>
+            </form>
         
         
     </main>

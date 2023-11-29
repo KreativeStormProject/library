@@ -46,6 +46,7 @@ function Book(title, author, numberP, read) {
                 </label>
             </p>
             <div class="icons">
+                <i class="material-icons" onclick="openEditModal(${index})">edit</i>
                 <i class="material-icons" onclick="deleteBook(${index})">delete</i>
             </div>
         `;
@@ -75,3 +76,41 @@ function Book(title, author, numberP, read) {
   myLibrary.splice(index, 1);
   displayBooks();
   }
+
+
+function openEditModal(index) {
+    console.log("here")
+    const book = myLibrary[index];
+    const editModal = document.getElementById('editBookModal');
+
+    // Pre-fill the form with existing book information
+    document.getElementById('editTitle').value = book.title;
+    document.getElementById('editAuthor').value = book.author;
+    document.getElementById('editNumber_of_pages').value = book.numberP;
+    document.getElementById('editRead').value = book.read ? 'yes' : 'no';
+
+    // Store the index of the book being edited
+    editModal.setAttribute('data-edit-index', index);
+
+    // Display the edit modal
+    editModal.style.display = 'block';
+}
+
+function saveEdit() {
+    const editModal = document.getElementById('editBookModal');
+    const index = editModal.getAttribute('data-edit-index');
+
+    const newTitle = document.getElementById('editTitle').value;
+    const newAuthor = document.getElementById('editAuthor').value;
+    const newNumberP = document.getElementById('editNumber_of_pages').value;
+    const newRead = document.getElementById('editRead').value;
+
+    // Update the book object with new values
+    myLibrary[index] = new Book(newTitle, newAuthor, newNumberP, newRead);
+
+    // Refresh the display
+    displayBooks();
+
+    // Close the edit modal
+    editModal.style.display = 'none';
+}
