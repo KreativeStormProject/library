@@ -1,5 +1,5 @@
-var modal = document.getElementById('addBookModal');
-var addCircleIcon = document.getElementById('add-circle');
+let modal = document.getElementById('addBookModal');
+let addCircleIcon = document.getElementById('add-circle');
 
 addCircleIcon.onclick = function () {
     modal.style.display = 'block';
@@ -20,25 +20,36 @@ function Book(title, author, numberP, read) {
     this.author = author;
     this.numberP = numberP;
     this.read = read === 'yes';
-    this.deleteBook = function () {
+    this.deleteBook = () => {
         myLibrary.splice(myLibrary.indexOf(this), 1);
+        saveToLocalStorage();
         displayBooks();
     };
-  }
-  
-  let myLibrary = [];
-  
-  document.addEventListener('DOMContentLoaded', displayBooks);
-  
-  
-  function displayBooks() {
+}
+
+let myLibrary = [];
+
+function saveToLocalStorage() {
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary))
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const storedLibrary = localStorage.getItem('myLibrary')
+    if (storedLibrary) {
+        myLibrary = JSON.parse(storedLibrary)
+    }
+    displayBooks()
+});
+
+
+function displayBooks() {
     const container = document.getElementById('cards');
     container.innerHTML = ''; // Clear existing content
-  
+
     myLibrary.forEach((book, index) => {
         const card = document.createElement('div');
         card.className = 'card';
-  
+
         card.innerHTML = `
             <h2>Title: ${book.title}</h2>
             <p>Author: ${book.author}</p>
@@ -54,29 +65,28 @@ function Book(title, author, numberP, read) {
                 <i class="material-icons" onclick="myLibrary[${index}].deleteBook()">delete</i>
             </div>
         `;
-  
+
         container.appendChild(card);
     });
     modal.style.display = 'none';
-  }
-  
+}
 
-  document.getElementById('addBookModal').addEventListener('submit', function (event) {
+
+document.getElementById('addBookModal').addEventListener('submit', function (event) {
     event.preventDefault();
-  
+
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const numberP = document.getElementById('number_of_pages').value;
     const read = document.getElementById('read').value;
-  
+
     const newBook = new Book(title, author, numberP, read);
     myLibrary.push(newBook);
+    saveToLocalStorage();
     displayBooks();
-  
-    document.getElementById('addBookModal').reset();
-  });
-  
 
+    document.getElementById('addBookModal').reset();
+});
 
 
 function openEditModal(index) {
@@ -110,6 +120,7 @@ function saveEdit() {
     myLibrary[index] = new Book(newTitle, newAuthor, newNumberP, newRead);
 
     // Refresh the display
+    saveToLocalStorage();
     displayBooks();
 
     // Close the edit modal
