@@ -1,18 +1,61 @@
 let modal = document.getElementById('addBookModal');
 let addCircleIcon = document.getElementById('add-circle');
 
-addCircleIcon.onclick = function () {
-    modal.style.display = 'block';
-};
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-};
+document.addEventListener('DOMContentLoaded', function () {
+    let addCircleIcon = document.getElementById('add-circle');
 
-function closeModal() {
-    modal.style.display = 'none';
-}
+    addCircleIcon.onclick = function () {
+        modal.style.display = 'block';
+    };
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+    
+    
+    document.getElementById('addBookModal').addEventListener('submit', function (event) {
+        event.preventDefault();
+    
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const numberP = document.getElementById('number_of_pages').value;
+        const read = document.getElementById('read').value;
+    
+        const newBook = new Book(title, author, numberP, read);
+        myLibrary.push(newBook);
+        saveToLocalStorage();
+        displayBooks();
+
+        modal.style.display = 'none';
+        document.getElementById('addBookModal').reset();
+    });
+
+    document.getElementById('editBookModal').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const editModal = document.getElementById('editBookModal');
+        const index = editModal.getAttribute('data-edit-index');
+
+        const newTitle = document.getElementById('editTitle').value;
+        const newAuthor = document.getElementById('editAuthor').value;
+        const newNumberP = document.getElementById('editNumber_of_pages').value;
+        const newRead = document.getElementById('editRead').value;
+
+        // Update the book object with new values
+        myLibrary[index] = new Book(newTitle, newAuthor, newNumberP, newRead);
+
+        // Refresh the display
+        saveToLocalStorage();
+        displayBooks();
+
+        // Close the edit modal
+        editModal.style.display = 'none';
+    });
+});
+
 
 
 function Book(title, author, numberP, read) {
@@ -20,12 +63,15 @@ function Book(title, author, numberP, read) {
     this.author = author;
     this.numberP = numberP;
     this.read = read === 'yes';
-    this.deleteBook = function () {
-        
-    };
 }
 
 let myLibrary = [];
+
+
+
+function closeModal() {
+    modal.style.display = 'none';
+}
 
 function saveToLocalStorage() {
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary))
@@ -42,54 +88,63 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function displayBooks() {
     const container = document.getElementById('cards');
-    container.innerHTML = ''; // Clear existing content
+    
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
 
     myLibrary.forEach((book, index) => {
         const card = document.createElement('div');
         card.className = 'card';
 
-        card.innerHTML = `
-            <h2>Title: ${book.title}</h2>
-            <p>Author: ${book.author}</p>
-            <p>Number of pages: ${book.numberP}</p>
-            <p>Mark as Read
-                <label class="switch">
-                    <input type="checkbox" ${book.read ? 'checked' : ''}>
-                    <span class="slider round"></span>
-                </label>
-            </p>
-            <div class="icons">
-                <i class="material-icons" onclick="openEditModal(${index})">edit</i>
-                <i class="material-icons" onclick="deleteBook(${index})">delete</i>
-            </div>
+        const title = document.createElement('h2');
+        title.textContent = `Title: ${book.title}`;
+
+        const author = document.createElement('p');
+        author.textContent = `Author: ${book.author}`;
+
+        const numberOfPages = document.createElement('p');
+        numberOfPages.textContent = `Number of pages: ${book.numberP}`;
+
+        const markAsRead = document.createElement('p');
+        markAsRead.innerHTML = `
+            Mark as Read
+            <label class="switch">
+                <input type="checkbox" ${book.read ? 'checked' : ''}>
+                <span class="slider round"></span>
+            </label>
         `;
 
+        const iconsContainer = document.createElement('div');
+        iconsContainer.className = 'icons';
+
+        const editIcon = document.createElement('i');
+        editIcon.className = 'material-icons';
+        editIcon.textContent = 'edit';
+        editIcon.onclick = () => openEditModal(index);
+
+        const deleteIcon = document.createElement('i');
+        deleteIcon.className = 'material-icons';
+        deleteIcon.textContent = 'delete';
+        deleteIcon.onclick = () => deleteBook(index);
+
+        iconsContainer.appendChild(editIcon);
+        iconsContainer.appendChild(deleteIcon);
+
+        card.appendChild(title);
+        card.appendChild(author);
+        card.appendChild(numberOfPages);
+        card.appendChild(markAsRead);
+        card.appendChild(iconsContainer);
+
         container.appendChild(card);
-    });
-    modal.style.display = 'none';
+});
+
 }
 
 
-document.getElementById('addBookModal').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const title = document.getElementById('title').value;
-    const author = document.getElementById('author').value;
-    const numberP = document.getElementById('number_of_pages').value;
-    const read = document.getElementById('read').value;
-
-    const newBook = new Book(title, author, numberP, read);
-    myLibrary.push(newBook);
-    saveToLocalStorage();
-    displayBooks();
-
-    document.getElementById('addBookModal').reset();
-});
-
 
 function openEditModal(index) {
-    
-    console.log("here")
     const book = myLibrary[index];
     const editModal = document.getElementById('editBookModal');
 
@@ -106,28 +161,8 @@ function openEditModal(index) {
     editModal.style.display = 'block';
 }
 
-function saveEdit() {
-    const editModal = document.getElementById('editBookModal');
-    const index = editModal.getAttribute('data-edit-index');
-
-    const newTitle = document.getElementById('editTitle').value;
-    const newAuthor = document.getElementById('editAuthor').value;
-    const newNumberP = document.getElementById('editNumber_of_pages').value;
-    const newRead = document.getElementById('editRead').value;
-
-    // Update the book object with new values
-    myLibrary[index] = new Book(newTitle, newAuthor, newNumberP, newRead);
-
-    // Refresh the display
-    saveToLocalStorage();
-    displayBooks();
-
-    // Close the edit modal
-    editModal.style.display = 'none';
-}
 
 function deleteBook(index) {
     myLibrary.splice(index, 1);
-    saveToLocalStorage();
     displayBooks();
-    }
+}

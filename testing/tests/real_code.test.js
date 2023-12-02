@@ -1,4 +1,4 @@
-const  {Book, deleteBook,saveEdit,openEditModal,displayBooks}  = require('../real_code'); // Make sure to update this with your actual file path
+const  {Book, deleteBook,openEditModal,displayBooks}  = require('../real_code'); // Make sure to update this with your actual file path
 
 // Test the Book constructor
 test('Book constructor creates a book object', () => {
@@ -6,7 +6,7 @@ test('Book constructor creates a book object', () => {
   expect(newBook.title).toBe('Title');
   expect(newBook.author).toBe('Author');
   expect(newBook.numberP).toBe(200);
-  expect(newBook.read).toBe(true);
+  expect(newBook.read).toBe(true);9
 });
 
 // Test the deleteBook method
@@ -16,6 +16,7 @@ test('deleteBook method removes a book from the library', () => {
   const library = [book1, book2];
 
   library.splice(0, 1);
+  
   
 
   expect(library).toEqual([book2]);

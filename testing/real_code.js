@@ -14,9 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    function closeModal() {
-        modal.style.display = 'none';
-    }
+    
     
     document.getElementById('addBookModal').addEventListener('submit', function (event) {
         event.preventDefault();
@@ -30,10 +28,32 @@ document.addEventListener('DOMContentLoaded', function () {
         myLibrary.push(newBook);
         saveToLocalStorage();
         displayBooks();
-    
+
+        modal.style.display = 'none';
         document.getElementById('addBookModal').reset();
     });
-    
+
+    document.getElementById('editBookModal').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const editModal = document.getElementById('editBookModal');
+        const index = editModal.getAttribute('data-edit-index');
+
+        const newTitle = document.getElementById('editTitle').value;
+        const newAuthor = document.getElementById('editAuthor').value;
+        const newNumberP = document.getElementById('editNumber_of_pages').value;
+        const newRead = document.getElementById('editRead').value;
+
+        // Update the book object with new values
+        myLibrary[index] = new Book(newTitle, newAuthor, newNumberP, newRead);
+
+        // Refresh the display
+        saveToLocalStorage();
+        displayBooks();
+
+        // Close the edit modal
+        editModal.style.display = 'none';
+    });
 });
 
 
@@ -46,6 +66,12 @@ function Book(title, author, numberP, read) {
 }
 
 let myLibrary = [];
+
+
+
+function closeModal() {
+    modal.style.display = 'none';
+}
 
 function saveToLocalStorage() {
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary))
@@ -63,6 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
 function displayBooks() {
     const container = document.getElementById('cards');
     
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
 
     myLibrary.forEach((book, index) => {
         const card = document.createElement('div');
@@ -132,29 +161,10 @@ function openEditModal(index) {
     editModal.style.display = 'block';
 }
 
-function saveEdit() {
-    const editModal = document.getElementById('editBookModal');
-    const index = editModal.getAttribute('data-edit-index');
-
-    const newTitle = document.getElementById('editTitle').value;
-    const newAuthor = document.getElementById('editAuthor').value;
-    const newNumberP = document.getElementById('editNumber_of_pages').value;
-    const newRead = document.getElementById('editRead').value;
-
-    // Update the book object with new values
-    myLibrary[index] = new Book(newTitle, newAuthor, newNumberP, newRead);
-
-    // Refresh the display
-    saveToLocalStorage();
-    displayBooks();
-
-    // Close the edit modal
-    editModal.style.display = 'none';
-}
 
 function deleteBook(index) {
     myLibrary.splice(index, 1);
     displayBooks();
 }
 
-module.exports = {Book, deleteBook,saveEdit,openEditModal,displayBooks};
+module.exports = {Book, deleteBook,openEditModal,displayBooks};
