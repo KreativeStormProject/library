@@ -20,10 +20,8 @@ function Book(title, author, numberP, read) {
     this.author = author;
     this.numberP = numberP;
     this.read = read === 'yes';
-    this.deleteBook = () => {
-        myLibrary.splice(myLibrary.indexOf(this), 1);
-        saveToLocalStorage();
-        displayBooks();
+    this.deleteBook = function () {
+        
     };
 }
 
@@ -62,7 +60,7 @@ function displayBooks() {
             </p>
             <div class="icons">
                 <i class="material-icons" onclick="openEditModal(${index})">edit</i>
-                <i class="material-icons" onclick="myLibrary[${index}].deleteBook()">delete</i>
+                <i class="material-icons" onclick="deleteBook(${index})">delete</i>
             </div>
         `;
 
@@ -90,6 +88,7 @@ document.getElementById('addBookModal').addEventListener('submit', function (eve
 
 
 function openEditModal(index) {
+    
     console.log("here")
     const book = myLibrary[index];
     const editModal = document.getElementById('editBookModal');
@@ -126,3 +125,9 @@ function saveEdit() {
     // Close the edit modal
     editModal.style.display = 'none';
 }
+
+function deleteBook(index) {
+    myLibrary.splice(index, 1);
+    saveToLocalStorage();
+    displayBooks();
+    }
