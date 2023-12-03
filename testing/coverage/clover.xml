@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1701608266718" clover="3.2.0">
-  <project timestamp="1701608266718" name="All files">
+<coverage generated="1701608781734" clover="3.2.0">
+  <project timestamp="1701608781734" name="All files">
     <metrics statements="170" coveredstatements="32" conditionals="1" coveredconditionals="1" methods="6" coveredmethods="1" elements="177" coveredelements="34" complexity="0" loc="170" ncloc="170" packages="1" files="1" classes="1"/>
     <file name="real_code.js" path="C:\Users\kkvv1\OneDrive\Documents\library1\testing\real_code.js">
       <metrics statements="170" coveredstatements="32" conditionals="1" coveredconditionals="1" methods="6" coveredmethods="1"/>
