@@ -5,7 +5,7 @@ const { JSDOM } = require("jsdom");
 const { fireEvent } = require("@testing-library/dom");
 
 // Load your HTML file
-const html = fs.readFileSync(path.resolve(__dirname, "index.html"), "utf8");
+const html = fs.readFileSync(path.resolve(__dirname, "../index.html"), "utf8");
 const dom = new JSDOM(html);
 const { document } = dom.window;
 
