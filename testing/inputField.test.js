@@ -38,7 +38,6 @@ describe("Form Input Fields", () => {
     );
   });
 
-
   //This test failed because the input fields allows only whitespace
   test("Author field is should contain at least one non-white space character", () => {
     const authorInput = document.getElementById("author");
@@ -49,7 +48,6 @@ describe("Form Input Fields", () => {
       "Constraints not satisfied"
     );
   });
-
 
   //This test failed because it accepts -0
   test("Number of pages should be greater than zero", () => {
