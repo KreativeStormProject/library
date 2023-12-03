@@ -165,6 +165,7 @@ function openEditModal(index) {
 function deleteBook(index) {
     myLibrary.splice(index, 1);
     displayBooks();
+    saveToLocalStorage()
 }
 
 function validateNumberInput(input) {
