@@ -16,7 +16,7 @@ describe("Form Input Fields", () => {
     form = document.getElementById("addBookModal");
   });
 
-  //This test fail because input field allows spaces 
+  //This test fail because input field allows only white spaces 
   test("Title field is should contain at least one non-white space character", () => {
     const titleInput = document.getElementById("title");
     fireEvent.input(titleInput, {target: { value: "  "}})
@@ -44,6 +44,40 @@ describe("Form Input Fields", () => {
     console.log(authorInput.validationMessage);
     fireEvent.submit(form);
     expect(authorInput.validationMessage).toBe(
+      "Constraints not satisfied"
+    );
+  });
+
+
+  //This test failed because it accepts -0
+  test("Number of pages should be greater than zero", () => {
+    const numberOfPages = document.getElementById("number_of_pages");
+    fireEvent.input(numberOfPages, { target: { value: "-0" } });
+    console.log(numberOfPages.validationMessage);
+    fireEvent.submit(form);
+    expect(numberOfPages.validationMessage).toBe(
+      "Constraints not satisfied"
+    );
+  });
+
+    //This test failed because it accepts 0
+    test("Number of pages should be greater than zero", () => {
+        const numberOfPages = document.getElementById("number_of_pages");
+        fireEvent.input(numberOfPages, { target: { value: "0" } });
+        console.log(numberOfPages.validationMessage);
+        fireEvent.submit(form);
+        expect(numberOfPages.validationMessage).toBe(
+          "Constraints not satisfied"
+        );
+      });
+    
+   //This test passed
+   test("Number of pages should be greater than zero", () => {
+    const numberOfPages = document.getElementById("number_of_pages");
+    fireEvent.input(numberOfPages, { target: { value: "-1" } });
+    console.log(numberOfPages.validationMessage);
+    fireEvent.submit(form);
+    expect(numberOfPages.validationMessage).toBe(
       "Constraints not satisfied"
     );
   });

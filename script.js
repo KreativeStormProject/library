@@ -107,7 +107,9 @@ function openEditModal(index) {
     editModal.style.display = 'block';
 }
 
-function saveEdit() {
+document.getElementById('editBookModal').addEventListener('submit', function (event) {
+    event.preventDefault();
+
     const editModal = document.getElementById('editBookModal');
     const index = editModal.getAttribute('data-edit-index');
 
@@ -125,4 +127,19 @@ function saveEdit() {
 
     // Close the edit modal
     editModal.style.display = 'none';
-}
+});
+
+
+function validateNumberInput(input) {
+    // Remove leading zeros
+    input.value = input.value.replace(/^0+/g, '');
+  
+    // Ensure the value is a positive integer
+    const intValue = parseInt(input.value, 10);
+    if (isNaN(intValue) || intValue < 1) {
+      input.setCustomValidity('Please enter a valid number greater than 0.');
+    } else {
+      input.setCustomValidity('');
+    }
+  }
+  

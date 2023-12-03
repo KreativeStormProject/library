@@ -44,7 +44,9 @@
                     <!-- <input type="text" name="Author" id="author" pattern="^[A-Za-z ]{2,}$" required> -->
                     <input type="text" name="Author" id="author" pattern="^[^\s][A-Za-z ]{2,}$" required>
                     <label for="Number_of_pages">Number of pages:</label>
-                    <input type="number" name="Number_of_pages" id="number_of_pages" required pattern="[0-9]+" min="0">
+                    <!-- <input type="number" name="Number_of_pages" id="number_of_pages" required pattern="[0-9]+"> -->
+                    <!-- <input type="number" name="Number_of_pages" id="number_of_pages" required pattern="[0-9]+" min="1"> -->
+                    <input type="number" name="Number_of_pages" id="number_of_pages" required oninput="validateNumberInput(this)">
                     <label for="read">Read:</label>
                     <select name="read" id="read" required>
                         <option value="yes">Yes</option>
@@ -58,13 +60,13 @@
                 <div class="modal-content">
                     <span class="close" onclick="document.getElementById('editBookModal').style.display='none'">&times;</span>
                     <h2>Edit Book</h2>
-                    <label>Title:</label>
-                    <input type="text" name="editTitle" id="editTitle"  required>
-                    <label>Author:</label>
-                    <input type="text" name="editAuthor" id="editAuthor" pattern="^[A-Za-z ]{2,}$" required>
-                    <label>Number of pages:</label>
-                    <input type="number" name="editNumber_of_pages" id="editNumber_of_pages" pattern="[0-9]+" min="0" required>
-                    <label>Read:</label>
+                    <label for="title"> Title:</label>
+                    <input type="text" name="editTitle" id="editTitle"  required  pattern=".*\S.*" >
+                    <label for="author">Author:</label>
+                    <input type="text" name="editAuthor" id="editAuthor" pattern="^[^\s][A-Za-z ]{2,}$" required>
+                    <label for="Number_of_pages">Number of pages:</label>
+                    <input type="number" name="editNumber_of_pages" id="editNumber_of_pages" required oninput="validateNumberInput(this)">
+                    <label for="read">Read:</label>
                     <select name="editRead" id="editRead" required>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
