@@ -166,3 +166,18 @@ function deleteBook(index) {
     myLibrary.splice(index, 1);
     displayBooks();
 }
+
+function validateNumberInput(input) {
+    // Remove leading zeros
+    input.value = input.value.replace(/^0+/g, '');
+  
+    // Ensure the value is a positive integer
+    const intValue = parseInt(input.value, 10);
+    if (isNaN(intValue) || intValue < 1) {
+      input.setCustomValidity('Please enter a valid number greater than 0.');
+    } else {
+      input.setCustomValidity('');
+    }
+  }
+  
+  
