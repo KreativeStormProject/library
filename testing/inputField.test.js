@@ -83,14 +83,15 @@ describe("Form Input Fields", () => {
   });
 
   //this test failed
-  test("When the first character is 0", async () => {
-    const numberOfPages = document.getElementById("number_of_pages");
-    fireEvent.input(numberOfPages, { target: { value: "0900" } });
-    await waitFor(() => {
-      expect(numberOfPages.value).toBe("900");
-    });
-    fireEvent.submit(form);
-  });
+      test("When the first character is 0", () => {
+        const numberOfPages = document.getElementById("number_of_pages");
+        fireEvent.input(numberOfPages, { target: { value: "0900" } });
+        console.log(numberOfPages.value);
+        fireEvent.submit(form);
+        expect(numberOfPages.value).toBe(
+          900
+        );
+      });
 
   
 });
