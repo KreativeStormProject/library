@@ -82,5 +82,16 @@ describe("Form Input Fields", () => {
     );
   });
 
+  
+    //This test failed
+    test("When the first character is 0", () => {
+        const numberOfPages = document.getElementById("number_of_pages");
+        fireEvent.input(numberOfPages, { target: { value: "0900" } });
+        console.log(numberOfPages.value);
+        fireEvent.submit(form);
+        expect(numberOfPages.value).toBe(
+          900
+        );
+      });
 
 });
